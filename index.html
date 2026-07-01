@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Crucial meta tag for mobile responsiveness -->
+    <!-- CRUCIAL for mobile view -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>Store Performance Summary - SAB Week 4</title>
-    <!-- Internal CSS for styling the website -->
+
+    <!-- Linking Font Awesome (Icon Library) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
         :root {
-            --primary-color: #3b5998; /* A strong blue */
+            --primary-color: #3b5998; /* Strong blue */
             --secondary-color: #f0f2f5; /* Light background grey */
-            --success-color: #4CAF50; /* Green for improvement */
-            --danger-color: #f44336; /* Red for decline */
+            --success-color: #4CAF50; 
+            --danger-color: #f44336; 
         }
 
-        /* ========================================= */
-        /* DEFAULT STYLES (For large screens/desktop) */
-        /* ========================================= */
         body {
             font-family: 'Arial', sans-serif;
             background-color: var(--secondary-color);
@@ -40,12 +40,30 @@
             margin-bottom: 10px;
         }
 
-        p.intro {
+        /* --- NEW: Global Summary Section Styling --- */
+        #summary-section {
+            background-color: #e6f2ff; /* Very light blue background */
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border: 1px solid var(--primary-color);
+        }
+
+        #summary-section p {
             text-align: center;
-            margin-bottom: 40px;
-            font-size: 1.1em;
-            border-bottom: 2px solid var(--secondary-color);
-            padding-bottom: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #444;
+        }
+
+        /* Filter/Control Bar */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ccc;
         }
 
         /* Grid Layout for Cards */
@@ -104,29 +122,28 @@
 
 
         /* ========================================= */
-        /* MEDIA QUERY FOR MOBILE DEVICES (Max width 768px) */
+        /* MEDIA QUERY FOR MOBILE DEVICES (Mobile Optimization) */
         /* ========================================= */
         @media screen and (max-width: 768px) {
             .container {
-                padding: 20px; /* Reduced padding on container */
+                padding: 15px; /* Reduced padding on container */
             }
 
             h1 {
-                font-size: 1.8em;
-            }
-
-            p.intro {
-                font-size: 1em; /* Slightly smaller intro text */
-                margin-bottom: 30px;
+                font-size: 1.6em;
             }
             
-            /* Adjust card padding and font sizes for tighter mobile space */
+            /* Adjusting the summary and controls for mobile stacking */
+            #summary-section p, .controls select {
+                font-size: 1em; 
+            }
+
             .card {
                 padding: 20px; 
             }
 
             .store-id {
-                font-size: 1.5em; /* Smaller store ID on phones */
+                font-size: 1.4em; /* Smaller store ID on phones */
             }
 
             h3 {
@@ -135,27 +152,40 @@
             }
 
             /* Metric Display adjustments */
-            .metric-box {
-                padding: 8px 0;
-            }
-
-            .metric-value {
-                font-size: 1.2em; /* Smaller metric value for better fit */
+            .metric-box span:first-child, .metric-value {
+                font-size: 0.95em; /* Smaller text overall for better fit */
             }
         }
-
     </style>
 </head>
-<body>
+<body onload="initFilters()">
     <div class="container">
-        <h1>📊 Store Performance Summary</h1>
-        <p class="intro">A summary of the performance metrics for your key store IDs based on the SAB Week 4 data. Green indicates positive growth, red indicates a decline.</p>
+        <h1>📊 Store Performance Dashboard</h1>
 
-        <!-- ========================================= -->
-        <!-- CARD: 101063 (Window Time) -->
-        <!-- ========================================= -->
+        <!-- NEW: Global Summary Section -->
+        <section id="summary-section">
+             <p><i class="fas fa-chart-line me-2"></i> Group Average Improvement (All Stores): <span style="color: var(--success-color); font-size: 1.3em;">+2.58%</span></p>
+        </section>
+
+        <!-- NEW: Filter Controls -->
+        <div class="controls">
+            <div>Show Status:</div>
+            <select id="statusFilter" onchange="filterStores()">
+                <option value="">All Stores</option>
+                <option value="positive">✅ Improved (Green)</option>
+                <option value="negative">❌ Needs Attention (Red)</option>
+            </select>
+        </div>
+
+        <!-- Store Grid -->
         <div class="store-grid">
-            <div class="card">
+            
+            <!-- ========================================= -->
+            <!-- CARD: 101063 (Window Time) -->
+            <!-- Added data attributes for JavaScript filtering -->
+            <!-- positive status means it improved -->
+            <!-- ========================================= -->
+            <div class="card" data-status="positive">
                 <div class="store-id">Store ID 101063</div >
                 <p style="font-style: italic; color: #777;">Overall Trend: Strong Improvement</p>
 
@@ -176,8 +206,9 @@
 
              <!-- ========================================= -->
              <!-- CARD: 102596 (GPS Time) -->
+             <!-- positive status means it improved -->
              <!-- ========================================= -->
-            <div class="card">
+            <div class="card" data-status="positive">
                 <div class="store-id">Store ID 102596</div>
                 <p style="font-style: italic; color: #777;">Overall Trend: Consistent Progress</p>
 
@@ -197,8 +228,9 @@
 
              <!-- ========================================= -->
              <!-- CARD: 102895 (GPS Time) -->
+             <!-- positive status means it improved -->
              <!-- ========================================= -->
-            <div class="card">
+            <div class="card" data-status="positive">
                 <div class="store-id">Store ID 102895</div>
                 <p style="font-style: italic; color: #777;">Overall Trend: Consistent Growth</p>
 
@@ -219,8 +251,9 @@
 
             <!-- ========================================= -->
             <!-- CARD: 120076 (GPS Time) -->
+            <!-- negative status means it declined -->
             <!-- ========================================= -->
-            <div class="card">
+            <div class="card" data-status="negative">
                 <div class="store-id">Store ID 120076</div>
                  <p style="font-style: italic; color: #777;">Overall Trend: Needs Attention</p>
 
@@ -238,7 +271,37 @@
                 </div>
             </div>
 
-        </div > <!-- End of store-grid -->
-    </div >
+        </div> <!-- End of store-grid -->
+    </div>
+
+    <!-- ========================================= -->
+    <!-- JAVASCRIPT FOR INTERACTIVITY (Place this BEFORE the closing </body> tag) -->
+    <!-- ========================================= -->
+    <script>
+        /** Initializes the filter on page load */
+        function initFilters() {
+            // Optional: You could run a default filter here if desired.
+            console.log("Dashboard loaded and filters ready.");
+        }
+
+        /** Filters the displayed cards based on the dropdown selection */
+        function filterStores() {
+            const selectElement = document.getElementById('statusFilter');
+            const selectedStatus = selectElement.value;
+            const cards = document.querySelectorAll('.card');
+
+            cards.forEach(card => {
+                const cardStatus = card.getAttribute('data-status');
+                
+                if (selectedStatus === '' || cardStatus === selectedStatus) {
+                    // Show the card if it matches the filter or no filter is active
+                    card.style.display = 'block'; 
+                } else {
+                    // Hide the card otherwise
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
 </body>
 </html>
