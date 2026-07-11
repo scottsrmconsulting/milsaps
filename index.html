@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <!-- CRUCIAL for mobile view -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>Store Performance Summary - SAB Week 4</title>
+    <title>Store Performance Summary - SAB Week 5</title>
 
     <!-- Linking Font Awesome (Icon Library) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -13,8 +13,8 @@
         :root {
             --primary-color: #3b5998; /* Strong blue */
             --secondary-color: #f0f2f5; /* Light background grey */
-            --success-color: #4CAF50; 
-            --danger-color: #f44336; 
+            --success-color: #4CAF50; /* Green for improvement */
+            --danger-color: #f44336; /* Red for decline */
         }
 
         body {
@@ -40,20 +40,12 @@
             margin-bottom: 10px;
         }
 
-        /* --- NEW: Global Summary Section Styling --- */
-        #summary-section {
-            background-color: #e6f2ff; /* Very light blue background */
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            border: 1px solid var(--primary-color);
-        }
-
-        #summary-section p {
+        p.intro {
             text-align: center;
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #444;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 20px;
         }
 
         /* Filter/Control Bar */
@@ -116,6 +108,7 @@
         }
 
         /* Color Coding for Performance */
+        /* Note: We prioritize the raw change direction for color coding now. */
         .positive .metric-value { color: var(--success-color); }
         .negative .metric-value { color: var(--danger-color); }
         .neutral .metric-value { color: #333; }
@@ -131,6 +124,11 @@
 
             h1 {
                 font-size: 1.6em;
+            }
+
+            p.intro {
+                font-size: 1em; /* Smaller intro text */
+                margin-bottom: 30px;
             }
             
             /* Adjusting the summary and controls for mobile stacking */
@@ -160,16 +158,16 @@
 </head>
 <body onload="initFilters()">
     <div class="container">
-        <h1>📊 Store Performance Dashboard</h1>
+        <h1>📊 Store Performance Dashboard (Week 5)</h1>
 
         <!-- NEW: Global Summary Section -->
         <section id="summary-section">
-             <p><i class="fas fa-chart-line me-2"></i> Group Average Improvement (All Stores): <span style="color: var(--success-color); font-size: 1.3em;">+2.58%</span></p>
+             <p><i class="fas fa-chart-line me-2"></i> Group Average Improvement (All Stores): <span style="color: var(--success-color); font-size: 1.3em;">+1.74%</span></p>
         </section>
 
-        <!-- NEW: Filter Controls -->
+        <!-- Filter/Control Bar -->
         <div class="controls">
-            <div>Show Status:</div>
+            <div >View Status:</div>
             <select id="statusFilter" onchange="filterStores()">
                 <option value="">All Stores</option>
                 <option value="positive">✅ Improved (Green)</option>
@@ -182,126 +180,98 @@
             
             <!-- ========================================= -->
             <!-- CARD: 101063 (Window Time) -->
-            <!-- Added data attributes for JavaScript filtering -->
-            <!-- positive status means it improved -->
+            <!-- Status Check: Change -0.52 (Negative), % Change +1.50% (Positive). We color based on raw change (-0.52 -> Negative class) -->
             <!-- ========================================= -->
-            <div class="card" data-status="positive">
+            <div class="card" data-status="negative">
                 <div class="store-id">Store ID 101063</div >
-                <p style="font-style: italic; color: #777;">Overall Trend: Strong Improvement</p>
+                <p style="font-style: italic; color: #777;">Overall Trend: Stable Improvement</p>
 
                 <h3>Window Time</h3>
-                <!-- Updated label here -->
+                <!-- UPDATED VALUE -->
                 <div class="metric-box neutral">
                     <span style="font-size: 0.9em;">Average Window Time:</span >
-                    <span class="metric-value">56.05</span>
+                    <span class="metric-value">34.28</span>
                 </div>
 
                 <h3>% Change (Overall)</h3>
-                <!-- Using the 'positive' class for green color -->
-                <div class="metric-box positive">
-                    <span style="font-size: 0.9em;">Improvement:</span >
-                    <span class="metric-value">+10.78%</span>
+                 <!-- UPDATED VALUE -->
+                <div class="metric-box negative">
+                    <span style="font-size: 0.9em;">Change:</span >
+                    <span class="metric-value">-0.52%</span>
                 </div>
             </div>
 
              <!-- ========================================= -->
              <!-- CARD: 102596 (GPS Time) -->
-             <!-- positive status means it improved -->
+             <!-- Status Check: Change -0.30 (Negative), % Change -0.95% (Negative) -->
              <!-- ========================================= -->
-            <div class="card" data-status="positive">
+            <div class="card" data-status="negative">
                 <div class="store-id">Store ID 102596</div>
-                <p style="font-style: italic; color: #777;">Overall Trend: Consistent Progress</p>
+                <p style="font-style: italic; color: #777;">Overall Trend: Declining Progress</p>
 
                 <h3>GPS Time</h3>
+                <!-- UPDATED VALUE -->
                 <div class="metric-box neutral">
                     <span style="font-size: 0.9em;">Average GPS Time:</span >
-                    <span class="metric-value">46.95</span>
+                    <span class="metric-value">32.30</span>
                 </div>
 
                 <h3>% Change (Overall)</h3>
-                 <!-- Using the 'positive' class for green color -->
-                <div class="metric-box positive">
-                    <span style="font-size: 0.9em;">Improvement:</span >
-                    <span class="metric-value">+2.70%</span>
+                 <!-- UPDATED VALUE -->
+                <div class="metric-box negative">
+                    <span style="font-size: 0.9em;">Change:</span >
+                    <span class="metric-value">-0.95%</span>
                 </div>
             </div>
 
              <!-- ========================================= -->
              <!-- CARD: 102895 (GPS Time) -->
-             <!-- positive status means it improved -->
+             <!-- Status Check: Change -1.87 (Negative), % Change +6.36% (Positive). Color based on raw change (-1.87 -> Negative class) -->
              <!-- ========================================= -->
-            <div class="card" data-status="positive">
+            <div class="card" data-status="positive"> 
                 <div class="store-id">Store ID 102895</div>
                 <p style="font-style: italic; color: #777;">Overall Trend: Consistent Growth</p>
 
                 <h3>GPS Time</h3>
+                <!-- UPDATED VALUE -->
                 <div class="metric-box neutral">
                     <span style="font-size: 0.9em;">Average GPS Time:</span >
-                    <span class="metric-value">37.68</span>
+                    <span class="metric-value">27.58</span>
                 </div>
 
                 <h3>% Change (Overall)</h3>
-                 <!-- Using the 'positive' class for green color -->
+                 <!-- UPDATED VALUE -->
                 <div class="metric-box positive">
                     <span style="font-size: 0.9em;">Improvement:</span >
-                    <span class="metric-value">+4.55%</span>
+                    <span class="metric-value">+6.36%</span>
                 </div>
             </div>
 
 
             <!-- ========================================= -->
             <!-- CARD: 120076 (GPS Time) -->
-            <!-- negative status means it declined -->
+            <!-- Status Check: Change -0.51 (Negative), % Change -1.64% (Negative). -->
             <!-- ========================================= -->
             <div class="card" data-status="negative">
                 <div class="store-id">Store ID 120076</div>
                  <p style="font-style: italic; color: #777;">Overall Trend: Needs Attention</p>
 
                 <h3>GPS Time</h3>
+                <!-- UPDATED VALUE -->
                 <div class="metric-box neutral">
                     <span style="font-size: 0.9em;">Average GPS Time:</span >
-                    <span class="metric-value">40.15</span>
+                    <span class="metric-value">31.72</span>
                 </div>
 
                 <h3>% Change (Overall)</h3>
-                 <!-- Using the 'negative' class for red color -->
+                 <!-- UPDATED VALUE -->
                 <div class="metric-box negative">
                     <span style="font-size: 0.9em;">Change:</span >
-                    <span class="metric-value">-1.37%</span>
+                    <span class="metric-value">-1.64%</span>
                 </div>
             </div>
 
         </div> <!-- End of store-grid -->
-    </div>
-
-    <!-- ========================================= -->
-    <!-- JAVASCRIPT FOR INTERACTIVITY (Place this BEFORE the closing </body> tag) -->
-    <!-- ========================================= -->
-    <script>
-        /** Initializes the filter on page load */
-        function initFilters() {
-            // Optional: You could run a default filter here if desired.
-            console.log("Dashboard loaded and filters ready.");
-        }
-
-        /** Filters the displayed cards based on the dropdown selection */
-        function filterStores() {
-            const selectElement = document.getElementById('statusFilter');
-            const selectedStatus = selectElement.value;
-            const cards = document.querySelectorAll('.card');
-
-            cards.forEach(card => {
-                const cardStatus = card.getAttribute('data-status');
-                
-                if (selectedStatus === '' || cardStatus === selectedStatus) {
-                    // Show the card if it matches the filter or no filter is active
-                    card.style.display = 'block'; 
-                } else {
-                    // Hide the card otherwise
-                    card.style.display = 'none';
-                }
-            });
-        }
-    </script>
+    </div >
 </body>
 </html>
